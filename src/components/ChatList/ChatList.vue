@@ -7,6 +7,7 @@
         {{ user }}
       </li>
     </ul>
+    <button @click="logout">Выйти</button>
   </div>
 </template>
 
@@ -16,7 +17,7 @@ import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
-    const currentUser = localStorage.getItem('currentUser')
+    const currentUser = sessionStorage.getItem('currentUser') // получаем текущего пользователя из sessionStorage
     const router = useRouter()
 
     const otherUsers = computed(() => {
@@ -27,10 +28,16 @@ export default defineComponent({
       router.push(`/chat/${user}`)
     }
 
+    const logout = () => {
+      sessionStorage.removeItem('currentUser')
+      router.push('/')
+    }
+
     return {
       currentUser,
       otherUsers,
-      openChat
+      openChat,
+      logout
     }
   }
 })

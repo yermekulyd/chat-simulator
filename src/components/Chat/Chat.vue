@@ -15,12 +15,13 @@
       <input v-model="newMessage" placeholder="Введите сообщение" @keyup.enter="sendMessage" />
       <button @click="sendMessage">Отправить</button>
     </div>
+    <button @click="goBack">Назад к списку чатов</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeUnmount, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 interface Message {
   id: number
@@ -32,13 +33,13 @@ interface Message {
 export default defineComponent({
   setup() {
     const route = useRoute()
-    const currentUser = localStorage.getItem('currentUser')
+    const router = useRouter()
+    const currentUser = sessionStorage.getItem('currentUser')
     const chatUser = route.params.username as string
 
     const messages = ref<Message[]>([])
     const newMessage = ref('')
 
-    // Загрузка сообщений для текущего чата
     const loadMessages = () => {
       const chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]')
       messages.value = chatHistory.filter(
@@ -66,6 +67,10 @@ export default defineComponent({
       loadMessages()
     }
 
+    const goBack = () => {
+      router.push('/chats') // возвращаемся к списку чатов
+    }
+
     onMounted(() => {
       loadMessages()
       window.addEventListener('storage', loadMessages) // Синхронизация сообщений между вкладками
@@ -79,7 +84,8 @@ export default defineComponent({
       chatUser,
       messages,
       newMessage,
-      sendMessage
+      sendMessage,
+      goBack
     }
   }
 })

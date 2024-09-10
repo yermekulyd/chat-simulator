@@ -19,8 +19,8 @@ export default defineComponent({
     const router = useRouter()
 
     const selectUser = (user: string) => {
-      localStorage.setItem('currentUser', user)
-      router.push('/chats') // после выбора пользователя перенаправляем на список чатов
+      sessionStorage.setItem('currentUser', user)
+      router.push('/chats')
     }
 
     return {
