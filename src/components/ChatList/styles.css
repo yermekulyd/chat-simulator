@@ -44,3 +44,27 @@
   color: #888;
   font-size: 18px;
 }
+
+.mobile-back {
+  display: none;
+  background-color: #2f3136;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+  }
+
+  .sidebar-hidden {
+    display: none; /* Hide the sidebar on mobile when a chat is selected */
+  }
+
+  .chat-content-hidden {
+    display: none; /* Hide chat content on mobile when no chat is selected */
+  }
+
+  .mobile-back {
+    display: block;
+  }
+}

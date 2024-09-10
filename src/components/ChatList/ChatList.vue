@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <!-- Левый блок с чатами -->
-    <div class="sidebar">
+    <div :class="isMobile && selectedUser ? 'sidebar-hidden' : 'sidebar'">
       <h1>Добро пожаловать, {{ currentUser }}!</h1>
       <h2>Выберите, кому хотите написать:</h2>
       <ul>
@@ -17,16 +17,16 @@
       <button @click="logout">Выйти</button>
     </div>
 
-    <!-- Правый блок с перепиской -->
-    <div class="chat-content">
-      <Chat v-if="selectedUser" :chatUser="selectedUser" />
+    <!-- Правая часть: переписка -->
+    <div :class="isMobile && !selectedUser ? 'chat-content-hidden' : 'chat-content'">
+      <Chat v-if="selectedUser" :chatUser="selectedUser" :isMobile="isMobile" @goBack="goBack" />
       <div v-else class="no-chat">Выберите чат, чтобы начать общение</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { Chat } from '@/components'
 
 export default defineComponent({
@@ -48,12 +48,33 @@ export default defineComponent({
       window.location.href = '/'
     }
 
+    const goBack = () => {
+      selectedUser.value = null
+    }
+
+    // Track viewport size to determine if it's mobile
+    const isMobile = ref(window.innerWidth < 768)
+
+    const updateIsMobile = () => {
+      isMobile.value = window.innerWidth < 768
+    }
+
+    onMounted(() => {
+      window.addEventListener('resize', updateIsMobile)
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', updateIsMobile)
+    })
+
     return {
       currentUser,
       otherUsers,
       selectedUser,
       selectChat,
-      logout
+      logout,
+      goBack,
+      isMobile
     }
   }
 })

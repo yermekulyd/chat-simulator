@@ -1,7 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="chat">
-    <h2>Чат с {{ chatUser }}</h2>
+    <div class="chat-header">
+      <h2>Чат с {{ chatUser }}</h2>
+      <button v-if="$props.isMobile && $props.chatUser" class="go-back" @click="goBack">
+        Назад
+      </button>
+    </div>
 
     <div class="messages">
       <ul>
@@ -33,9 +38,13 @@ export default defineComponent({
     chatUser: {
       type: String,
       required: true
+    },
+    isMobile: {
+      type: Boolean
     }
   },
-  setup(props) {
+  emits: ['goBack'],
+  setup(props, { emit }) {
     const currentUser = sessionStorage.getItem('currentUser')
     const messages = ref<Message[]>([])
     const newMessage = ref('')
@@ -66,6 +75,10 @@ export default defineComponent({
       loadMessages()
     }
 
+    const goBack = () => {
+      emit('goBack')
+    }
+
     watch(() => props.chatUser, loadMessages)
 
     onMounted(() => {
@@ -80,7 +93,8 @@ export default defineComponent({
     return {
       messages,
       newMessage,
-      sendMessage
+      sendMessage,
+      goBack
     }
   }
 })
