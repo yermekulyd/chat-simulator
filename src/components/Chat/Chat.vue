@@ -15,13 +15,11 @@
       <input v-model="newMessage" placeholder="Введите сообщение" @keyup.enter="sendMessage" />
       <button @click="sendMessage">Отправить</button>
     </div>
-    <button @click="goBack">Назад к списку чатов</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { defineComponent, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 
 interface Message {
   id: number
@@ -31,12 +29,14 @@ interface Message {
 }
 
 export default defineComponent({
-  setup() {
-    const route = useRoute()
-    const router = useRouter()
+  props: {
+    chatUser: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const currentUser = sessionStorage.getItem('currentUser')
-    const chatUser = route.params.username as string
-
     const messages = ref<Message[]>([])
     const newMessage = ref('')
 
@@ -44,12 +44,11 @@ export default defineComponent({
       const chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]')
       messages.value = chatHistory.filter(
         (msg: Message) =>
-          (msg.from === currentUser && msg.to === chatUser) ||
-          (msg.from === chatUser && msg.to === currentUser)
+          (msg.from === currentUser && msg.to === props.chatUser) ||
+          (msg.from === props.chatUser && msg.to === currentUser)
       )
     }
 
-    // Отправка нового сообщения
     const sendMessage = () => {
       if (newMessage.value.trim() === '') return
 
@@ -57,7 +56,7 @@ export default defineComponent({
       const message: Message = {
         id: Date.now(),
         from: currentUser as string,
-        to: chatUser,
+        to: props.chatUser,
         text: newMessage.value
       }
 
@@ -67,13 +66,11 @@ export default defineComponent({
       loadMessages()
     }
 
-    const goBack = () => {
-      router.push('/chats') // возвращаемся к списку чатов
-    }
+    watch(() => props.chatUser, loadMessages)
 
     onMounted(() => {
       loadMessages()
-      window.addEventListener('storage', loadMessages) // Синхронизация сообщений между вкладками
+      window.addEventListener('storage', loadMessages)
     })
 
     onBeforeUnmount(() => {
@@ -81,11 +78,9 @@ export default defineComponent({
     })
 
     return {
-      chatUser,
       messages,
       newMessage,
-      sendMessage,
-      goBack
+      sendMessage
     }
   }
 })

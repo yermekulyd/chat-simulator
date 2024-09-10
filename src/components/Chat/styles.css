@@ -1,73 +1,39 @@
 .chat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
 }
 
 .messages {
-  width: 100%;
-  max-height: 400px;
+  flex-grow: 1;
   overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #f9f9f9;
-}
-
-.messages ul {
-  list-style: none;
-  padding: 0;
-}
-
-.messages li {
-  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #2f3136;
 }
 
 .message-box {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
-  width: 100%;
+  padding: 10px;
+  background-color: #40444b;
 }
 
 .message-box input {
-  flex: 1;
+  flex-grow: 1;
   padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border: none;
+  border-radius: 4px;
+  background-color: #2f3136;
+  color: white;
 }
 
 .message-box button {
   padding: 10px 20px;
-  border-radius: 8px;
-  background-color: #0088cc;
+  background-color: #7289da;
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .chat {
-    padding: 10px;
-  }
-
-  .messages {
-    max-height: 300px;
-  }
-
-  .message-box {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .message-box input {
-    width: 100%;
-  }
-
-  .message-box button {
-    width: 100%;
-  }
 }

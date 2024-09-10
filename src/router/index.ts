@@ -14,6 +14,7 @@ const router = createRouter({
       name: 'ChatList',
       component: ChatList
     },
+    //TODO: delete this after
     {
       path: '/chat/:username',
       name: 'Chat',
