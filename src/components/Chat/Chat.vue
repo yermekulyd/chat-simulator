@@ -32,7 +32,9 @@
         @keyup.enter="sendMessage"
         ref="messageInput"
       />
-      <button @click="sendMessage">Отправить</button>
+      <button @click="sendMessage" class="send-btn">
+        <i class="fas fa-paper-plane"></i>
+      </button>
     </div>
   </div>
 </template>

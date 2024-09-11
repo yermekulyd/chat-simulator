@@ -2,8 +2,22 @@
   <div class="layout">
     <!-- Левый блок с чатами -->
     <div :class="isMobile && selectedUser ? 'sidebar-hidden' : 'sidebar'">
-      <h1>Добро пожаловать, {{ currentUser }}!</h1>
-      <h2>Выберите, кому хотите написать:</h2>
+      <div class="current-user">
+        <div class="user-profile">
+          <div class="profile-pic">{{ currentUser?.charAt(0).toUpperCase() }}</div>
+          <div class="text-wrapper">
+            <div class="username">{{ currentUser }}</div>
+            <div class="online">online</div>
+          </div>
+        </div>
+        <button class="logout-btn" @click="logout">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Список чатов -->
       <ul>
         <li
           v-for="user in otherUsers"
@@ -11,10 +25,12 @@
           :class="{ active: selectedUser === user }"
           @click="selectChat(user)"
         >
-          {{ user }}
+          <div class="user-info">
+            <div class="profile-pic">{{ user.charAt(0).toUpperCase() }}</div>
+            <div>{{ user }}</div>
+          </div>
         </li>
       </ul>
-      <button @click="logout">Выйти</button>
     </div>
 
     <!-- Правая часть: переписка -->
