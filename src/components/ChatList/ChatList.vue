@@ -52,7 +52,9 @@ export default defineComponent({
     const selectedUser = ref<string | null>(null)
 
     const otherUsers = computed(() => {
-      return ['Angelina', 'Justin', 'Dmitrii'].filter((user) => user !== currentUser)
+      return ['Ангелина', 'Жомарт', 'Бауыржан', 'Дарын', 'Роза'].filter(
+        (user) => user !== currentUser
+      )
     })
 
     const selectChat = (user: string) => {

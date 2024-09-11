@@ -1,9 +1,10 @@
 <template>
   <div class="user-select">
-    <h1>Выберите пользователя для входа</h1>
+    <h1>Выберите пользователя</h1>
     <ul>
-      <li v-for="user in users" :key="user" @click="selectUser(user)">
-        {{ user }}
+      <li v-for="user in users" :key="user" @click="selectUser(user)" class="user-item">
+        <div class="avatar">{{ user.charAt(0).toUpperCase() }}</div>
+        <span class="username">{{ user }}</span>
       </li>
     </ul>
   </div>
@@ -15,7 +16,7 @@ import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
-    const users = ref(['Angelina', 'Justin', 'Dmitrii'])
+    const users = ref(['Ангелина', 'Жомарт', 'Бауыржан', 'Дарын', 'Роза'])
     const router = useRouter()
 
     const selectUser = (user: string) => {
