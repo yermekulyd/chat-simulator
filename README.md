@@ -1,6 +1,18 @@
-# chat-simulator
+# Chat Simulator
 
-This template should help get you started developing with Vue 3 in Vite.
+Chat Simulator is a simple chat application built using **Vue 3** and **TypeScript** that allows users to communicate in real time through Local Storage. This project simulates a chat app where you can select a user to log in as and chat with other users across multiple browser tabs.
+
+## Key Features
+
+- **Local Storage**: All messages are stored in Local Storage, allowing users to see chat history and continue conversations even after reloading the page.
+- **Multi-tab Communication**: You can open multiple browser tabs, log in as different users, and communicate between them in real-time.
+- **Messenger-inspired Interface**: A simple, minimalist design with a dark color scheme inspired by popular messaging apps.
+
+## Live Demo
+
+You can try the app by visiting the following link:
+
+[Chat Simulator Demo](https://yermekulyd.github.io/chat-simulator/)
 
 ## Recommended IDE Setup
 
