@@ -6,18 +6,118 @@
   width: 100%;
 }
 
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 54px;
+  padding-left: 16px;
+}
+
+.go-back {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.go-back i {
+  font-size: 16px;
+  color: #5c6670;
+}
+
+.go-back:hover i {
+  color: #bfc2df;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  background-color: #5c6670;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.nickname {
+  font-size: 18px;
+  color: #ffffff;
+}
+
 .messages {
   flex-grow: 1;
   overflow-y: auto;
   padding: 10px;
   background-color: #2f3136;
+  background-image: url('/telegram-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.messages ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.messages li {
+  display: flex;
+  margin-bottom: 10px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.messages li.sent {
+  justify-content: flex-end;
+}
+
+.messages li.received {
+  justify-content: flex-start;
+}
+
+.message-content {
+  padding: 8px 12px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #000000;
+  position: relative;
+}
+
+.messages li.sent .message-content {
+  background-color: #894b77;
+  color: #dfdfdf;
+}
+
+.messages li.received .message-content {
+  background-color: #252229;
+  color: #dfdfdf;
+}
+
+.messages li p {
+  margin: 0;
+  padding: 0;
 }
 
 .message-box {
   display: flex;
   gap: 10px;
   padding: 10px;
-  background-color: #40444b;
+  background-color: #17212b;
 }
 
 .message-box input {
@@ -26,7 +126,8 @@
   border: none;
   border-radius: 4px;
   background-color: #2f3136;
-  color: white;
+  color: #bbbbbd;
+  outline: none;
 }
 
 .message-box button {
@@ -36,4 +137,18 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid transparent;
 }

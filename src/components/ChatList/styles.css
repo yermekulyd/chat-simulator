@@ -5,7 +5,7 @@
 
 .sidebar {
   width: 300px;
-  background-color: #2f3136;
+  background-color: #17212b;
   color: white;
   padding: 20px;
   overflow-y: auto;
@@ -29,7 +29,7 @@
 
 .chat-content {
   flex-grow: 1;
-  background-color: #40444b;
+  background-color: #0e1621;
   color: white;
   display: flex;
   justify-content: center;
@@ -41,8 +41,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #888;
-  font-size: 18px;
+  border-radius: 10px;
+  padding: 6px 10px;
+  background-color: #1e2c3a;
+  color: #d9effa;
+  font-size: 14px;
 }
 
 .mobile-back {
@@ -57,11 +60,11 @@
   }
 
   .sidebar-hidden {
-    display: none; /* Hide the sidebar on mobile when a chat is selected */
+    display: none;
   }
 
   .chat-content-hidden {
-    display: none; /* Hide chat content on mobile when no chat is selected */
+    display: none;
   }
 
   .mobile-back {

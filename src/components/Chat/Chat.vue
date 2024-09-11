@@ -2,22 +2,36 @@
 <template>
   <div class="chat">
     <div class="chat-header">
-      <h2>Чат с {{ chatUser }}</h2>
       <button v-if="$props.isMobile && $props.chatUser" class="go-back" @click="goBack">
-        Назад
+        <i class="fas fa-arrow-left"></i>
       </button>
+      <div class="user-info">
+        <div class="avatar">{{ chatUser.charAt(0).toUpperCase() }}</div>
+        <p class="nickname">{{ chatUser }}</p>
+      </div>
     </div>
 
     <div class="messages">
       <ul>
-        <li v-for="message in messages" :key="message.id">
-          <strong>{{ message.from }}:</strong> {{ message.text }}
+        <li
+          v-for="message in messages"
+          :key="message.id"
+          :class="message.from === currentUser ? 'sent' : 'received'"
+        >
+          <div class="message-content">
+            <p>{{ message.text }}</p>
+          </div>
         </li>
       </ul>
     </div>
 
     <div class="message-box">
-      <input v-model="newMessage" placeholder="Введите сообщение" @keyup.enter="sendMessage" />
+      <input
+        v-model="newMessage"
+        placeholder="Введите сообщение"
+        @keyup.enter="sendMessage"
+        ref="messageInput"
+      />
       <button @click="sendMessage">Отправить</button>
     </div>
   </div>
@@ -48,6 +62,7 @@ export default defineComponent({
     const currentUser = sessionStorage.getItem('currentUser')
     const messages = ref<Message[]>([])
     const newMessage = ref('')
+    const messageInput = ref<HTMLInputElement | null>(null)
 
     const loadMessages = () => {
       const chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]')
@@ -84,6 +99,9 @@ export default defineComponent({
     onMounted(() => {
       loadMessages()
       window.addEventListener('storage', loadMessages)
+      if (messageInput.value) {
+        messageInput.value.focus()
+      }
     })
 
     onBeforeUnmount(() => {
@@ -91,8 +109,10 @@ export default defineComponent({
     })
 
     return {
+      currentUser,
       messages,
       newMessage,
+      messageInput,
       sendMessage,
       goBack
     }

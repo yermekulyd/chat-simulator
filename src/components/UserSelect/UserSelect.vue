@@ -15,7 +15,7 @@ import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
-    const users = ref(['User1', 'User2', 'User3'])
+    const users = ref(['Angelina', 'Justin', 'Dmitrii'])
     const router = useRouter()
 
     const selectUser = (user: string) => {
